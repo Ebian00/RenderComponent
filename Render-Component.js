@@ -16,6 +16,7 @@ class RenderComponent extends LitElement {
       constructor() {
         super(); 
         this.link = new Object;
+          console.log(this.id);
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
         this.getResource()
