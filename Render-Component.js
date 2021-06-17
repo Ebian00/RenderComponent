@@ -16,8 +16,7 @@ class RenderComponent extends LitElement {
       constructor() {
         super(); 
         this.link = new Object;
-          this.guz ="39aeerregasesesdasderwrwereessaf42-e39eafferre7122cab12e-zdsef323";
-          console.log(this.guz);
+        console.log(this.guz);
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
         this.getResource()
@@ -32,7 +31,7 @@ class RenderComponent extends LitElement {
  
      async getResource(){ 
          console.log("hello from the render component, the id is" + this.guz);
-      var getElement = this.serverURL+this.getEntity+this.id;
+      var getElement = this.serverURL+this.getEntity+this.guz;
        var objectKeys = Array;
       console.log(getElement)
         fetch(getElement, {
