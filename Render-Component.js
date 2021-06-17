@@ -24,10 +24,11 @@ class RenderComponent extends LitElement {
     render() {
         return html`
             
-            <div id='placeholder'> check guz </div>
+            <span id='content'> check guz </span>
         `;
       }
 connectedCallback (){
+    console.log(this)
    // this.getResource()
 }
  
@@ -97,7 +98,7 @@ connectedCallback (){
 }
     renderImage(image){
       console.log("we are in the renderImage function")
-      this.shadowRoot.getElementById('placeholder').innerHTML = '<img width= 50% height= auto src="data:image/jpg;base64,'+image+'"></img>';
+      this.shadowRoot.getElementById('content').innerHTML = '<img width= 50% height= auto src="data:image/jpg;base64,'+image+'"></img>';
     }
    /* renderPDF(pdf){
       this.shadowRoot.getElementById('placeholder').innerHTML = '<a onClick='+this.openPDF+' href=-- name=' +this.contentName+'>Download Pdf</a>';
@@ -107,10 +108,10 @@ connectedCallback (){
       var file = new Blob([data], { type: 'application/pdf' });
      var fileURL = URL.createObjectURL(file);
       window.open(this.link);
-      this.shadowRoot.getElementById('placeholder').innerHTML=''
+      this.shadowRoot.getElementById('content').innerHTML=''
     }
     renderHtml(html){
-      this.shadowRoot.getElementById('placeholder').innerHTML = html;
+      this.shadowRoot.getElementById('content').innerHTML = html;
     }
 
     submit(){
