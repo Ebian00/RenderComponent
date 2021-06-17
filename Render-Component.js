@@ -19,7 +19,7 @@ class RenderComponent extends LitElement {
         console.log(this.guz);
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
-        this.getResource()
+        //this.getResource()
       }
     render() {
         return html`
@@ -27,7 +27,9 @@ class RenderComponent extends LitElement {
             <div id='placeholder'> </div>
         `;
       }
-
+connectedCallback (){
+    this.getResource()
+}
  
      async getResource(){ 
          console.log("hello from the render component, the id is" + this.guz);
