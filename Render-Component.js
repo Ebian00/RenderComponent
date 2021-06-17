@@ -28,7 +28,7 @@ class RenderComponent extends LitElement {
         `;
       }
 connectedCallback (){
-    this.getResource()
+   // this.getResource()
 }
  
      async getResource(){ 
