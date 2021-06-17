@@ -23,8 +23,7 @@ class RenderComponent extends LitElement {
       }
     render() {
         return html`
-            
-            <span id='content'> check guz </span>
+            <p id='content'> check guz </p>
         `;
       }
 connectedCallback (){
