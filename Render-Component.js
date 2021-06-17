@@ -24,7 +24,7 @@ class RenderComponent extends LitElement {
     render() {
         return html`
             
-            <div id='placeholder'> </div>
+            <div id='placeholder'> check guz </div>
         `;
       }
 connectedCallback (){
