@@ -23,17 +23,43 @@ class RenderComponent extends LitElement {
       }
     render() {
         return html`
-            <p id='content'> check guz </p>
+        <div id="content" class="placeholder" @drop=${this.drop} @dragover=${this.allowDrop}>drag the content here!</div>
         `;
       }
-connectedCallback (){
-    console.log(this)
-   // this.getResource()
+      drop(e){
+        e.preventDefault();
+        console.log(e)
+       e.preventDefault();
+      var data = e.dataTransfer.getData("text");
+     console.log(data)
+     this.getResource(data);
+        this.name = data;
+
+     let myEvent = new CustomEvent('my-event', { 
+      detail: data,
+      bubbles: true, 
+      composed: true });
+    this.dispatchEvent(myEvent);
+      //  this.dispatchEvent(new CustomEvent('content', { detail: { key: data}}));
+      }
+      allowDrop(e){
+        e.preventDefault();
+    }
+   connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('my-event', this.addElement);
+  }
+  disconnectedCallback() {
+    window.removeEventListener('my-event', this.addElement);
+    super.disconnectedCallback();
+  
 }
  
-     async getResource(){ 
-         console.log("hello from the render component, the id is" + this.guz);
-      var getElement = this.serverURL+this.getEntity+this.guz;
+     async getResource(id){ 
+       console.log("this is the getResource and the id is " +id)
+         console.log("hello from the render component, the id is" + id);
+      var getElement = this.serverURL+this.getEntity+id;
+      var blobObject ;
        var objectKeys = Array;
       console.log(getElement)
         fetch(getElement, {
@@ -47,7 +73,7 @@ connectedCallback (){
           redirect: 'follow', // manual, *follow, error
           credentials: 'include',
         })
-        .then((response) => response.json())
+        .then((response) =>  response.json())
         .then((responseText) => {
           var typeOfElement = responseText["type"];
           if(typeOfElement === undefined){
@@ -61,7 +87,8 @@ connectedCallback (){
             this.renderHtml(responseText["response"]);
           }
           else if(typeOfElement==="pdf"){
-           this.getPDF(this.shadowRoot.getElementById('inputfield').value);
+            console.log("we are in the getPDF")
+           this.getPDF(responseText["response"]);
           }
           else{
             alert("the type of the object is not supported");
@@ -73,28 +100,26 @@ connectedCallback (){
         });
 }
 
- getPDF(id){ 
-  var getElement = this.serverURL+"getPdfByte/"+id;
-  fetch(getElement, {
-    method: 'GET',
-    headers: {
-      'Authorization':  this.jwt ,
-        'Content-Type': 'application/json'
-   }
-  })
-  .then(response => {
+ getPDF(res){
+
+  const binaryString = window.atob(res);
+  const bytes = new Uint8Array(binaryString.length);
+  const mappedData = bytes.map((byte, i) => binaryString.charCodeAt(i));
+  const blob = new Blob([mappedData], { type: 'application/pdf' });
     console.log("here is the response")
-    console.log(response);
+    console.log(res);
+    console.log(blob);
    const filename =  "check";
-   response.blob().then(blob => {
+   
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.setAttribute("download", filename);
-    a.text = "Download Me "
-    this.shadowRoot.getElementById('placeholder').append(a);
- });
-});
+    a.text = "Download Me ";
+    this.shadowRoot.getElementById('content').innerHTML ="";
+    this.shadowRoot.getElementById('content').append(a);
+
 }
+
     renderImage(image){
       console.log("we are in the renderImage function")
       this.shadowRoot.getElementById('content').innerHTML = '<img width= 50% height= auto src="data:image/jpg;base64,'+image+'"></img>';
@@ -136,12 +161,10 @@ connectedCallback (){
         padding:8px;
         box-sizing:border-box;
         transition:.3s; }
-
         input[type=text]:focus{
         border-color:dodgerBlue;
         box-shadow:0 0 8px 0 dodgerBlue;
         }
-
         button { width: 6%;
         height: 40px;
         border: 2pxf solid #aaa;
@@ -151,10 +174,15 @@ connectedCallback (){
         padding:8px;
         box-sizing:border-box;
         transition:.3s; }
-
         button:focus{
         border-color:dodgerBlue;
         box-shadow:0 0 8px 0 dodgerBlue;
+  }
+  .placeholder{
+    padding:8px;
+    width: fit-content; 
+  /* To adjust the height as well */ 
+  height: fit-content;
   }
       `;
     }
