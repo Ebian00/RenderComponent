@@ -4,7 +4,7 @@ class RenderComponent extends LitElement {
     static get properties() {
         return {
           serverURL : {type: String},
-          guz : {type : String},
+          id : {type : String},
           getEntity : {type : String},
           myArray : { type : Array },
           contentName : {type:  String},
@@ -16,7 +16,7 @@ class RenderComponent extends LitElement {
       constructor() {
         super(); 
         this.link = new Object;
-        console.log(this.guz);
+        console.log(this.id);
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
         //this.getResource()
@@ -35,7 +35,7 @@ class RenderComponent extends LitElement {
      this.getResource(data);
         this.name = data;
 
-     let myEvent = new CustomEvent('my-event', { 
+     let myEvent = new CustomEvent('save-id', { 
       detail: data,
       bubbles: true, 
       composed: true });
@@ -87,7 +87,7 @@ class RenderComponent extends LitElement {
             this.renderHtml(responseText["response"]);
           }
           else if(typeOfElement==="pdf"){
-            console.log("we are in the getPDF")
+            //console.log("we are in the getPDF")
            this.getPDF(responseText["response"]);
           }
           else{
