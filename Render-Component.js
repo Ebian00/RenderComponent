@@ -56,8 +56,9 @@ class RenderComponent extends LitElement {
 }
   attributeChangedCallback(name, oldval, newval) {
     console.log('attribute change: ', newval);
-      this.getResource();
+  
     super.attributeChangedCallback(name, oldval, newval);
+          this.getResource();
   }
      async getResource(){ 
        console.log("this is the getResource and the id is " +this.contentId)
