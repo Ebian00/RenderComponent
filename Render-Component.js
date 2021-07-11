@@ -56,7 +56,6 @@ class RenderComponent extends LitElement {
 }
   attributeChangedCallback(name, oldval, newval) {
     console.log('attribute change: ', newval);
-  
     super.attributeChangedCallback(name, oldval, newval);
           this.getResource();
   }
