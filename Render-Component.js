@@ -19,7 +19,7 @@ class RenderComponent extends LitElement {
         console.log(this.contentId);
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
-        this.getResource()
+    this.contentId = "";
       }
     render() {
         return html`
@@ -54,7 +54,11 @@ class RenderComponent extends LitElement {
     super.disconnectedCallback();
   
 }
- 
+  attributeChangedCallback(name, oldval, newval) {
+    console.log('attribute change: ', newval);
+      this.getResource();
+    super.attributeChangedCallback(name, oldval, newval);
+  }
      async getResource(){ 
        console.log("this is the getResource and the id is " +this.contentId)
          console.log("hello from the render component, the id is" + this.contentId);
