@@ -62,7 +62,7 @@ class RenderComponent extends LitElement {
      async getResource(){ 
        console.log("this is the getResource and the id is " +this.contentId)
          console.log("hello from the render component, the id is" + this.contentId);
-      var getElement = this.serverURL+this.getEntity+this.id;
+      var getElement = this.serverURL+this.getEntity+this.contentId;
       var blobObject ;
        var objectKeys = Array;
       console.log(getElement)
