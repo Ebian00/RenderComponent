@@ -4,7 +4,7 @@ class RenderComponent extends LitElement {
     static get properties() {
         return {
           serverURL : {type: String},
-          contentId : {type : String},
+          id : {type : String},
           getEntity : {type : String},
           myArray : { type : Array },
           contentName : {type:  String},
@@ -16,10 +16,10 @@ class RenderComponent extends LitElement {
       constructor() {
         super(); 
         this.link = new Object;
-        console.log(this.contentId);
+        console.log(this.id);
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
-    this.contentId = "";
+        //this.getResource()
       }
     render() {
         return html`
@@ -34,35 +34,16 @@ class RenderComponent extends LitElement {
      console.log(data)
      this.getResource(data);
         this.name = data;
-
-     let myEvent = new CustomEvent('save-id', { 
-      detail: data,
-      bubbles: true, 
-      composed: true });
-    this.dispatchEvent(myEvent);
-      //  this.dispatchEvent(new CustomEvent('content', { detail: { key: data}}));
       }
       allowDrop(e){
         e.preventDefault();
     }
-   connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('my-event', this.addElement);
-  }
-  disconnectedCallback() {
-    window.removeEventListener('my-event', this.addElement);
-    super.disconnectedCallback();
-  
-}
-  attributeChangedCallback(name, oldval, newval) {
-    console.log('attribute change: ', newval);
-    super.attributeChangedCallback(name, oldval, newval);
-          this.getResource();
-  }
-     async getResource(){ 
-       console.log("this is the getResource and the id is " +this.contentId)
-         console.log("hello from the render component, the id is" + this.contentId);
-      var getElement = this.serverURL+this.getEntity+this.contentId;
+ 
+ 
+     async getResource(id){ 
+       console.log("this is the getResource and the id is " +id)
+         console.log("hello from the render component, the id is" + id);
+      var getElement = this.serverURL+this.getEntity+id;
       var blobObject ;
        var objectKeys = Array;
       console.log(getElement)
@@ -128,9 +109,7 @@ class RenderComponent extends LitElement {
       console.log("we are in the renderImage function")
       this.shadowRoot.getElementById('content').innerHTML = '<img width= 50% height= auto src="data:image/jpg;base64,'+image+'"></img>';
     }
-   /* renderPDF(pdf){
-      this.shadowRoot.getElementById('placeholder').innerHTML = '<a onClick='+this.openPDF+' href=-- name=' +this.contentName+'>Download Pdf</a>';
-    }*/
+   
 
     openPDF(){
       var file = new Blob([data], { type: 'application/pdf' });
