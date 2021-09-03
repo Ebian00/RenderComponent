@@ -18,7 +18,7 @@ class RenderComponent extends LitElement {
         this.link = new Object;
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
-        this.getResource()
+        //this.getResource()
       }
     render() {
         return html`
