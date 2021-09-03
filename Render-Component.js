@@ -16,14 +16,13 @@ class RenderComponent extends LitElement {
       constructor() {
         super(); 
         this.link = new Object;
-        console.log(this.id);
         this.getEntity = "getEntity/";
         this.serverURL = "https://localhost:8443/caas/";
-        //this.getResource()
+        this.getResource()
       }
     render() {
         return html`
-        <div id="content" class="placeholder" @drop=${this.drop} @dragover=${this.allowDrop}>drag the content here!</div>
+        <div id="content" class="placeholder"></div>
         `;
       }
       drop(e){
