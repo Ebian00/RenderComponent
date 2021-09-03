@@ -25,6 +25,13 @@ class RenderComponent extends LitElement {
         <div id="content" class="placeholder"></div>
         `;
       }
+    firstUpdated(changedProperties) {
+        changedProperties.forEach((oldValue, propName) => {
+          console.log(`${propName} changed. oldValue: ${oldValue}`);
+        });
+        
+        this.getResource();
+      }
       drop(e){
         e.preventDefault();
         console.log(e)
